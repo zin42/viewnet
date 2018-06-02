@@ -4,7 +4,7 @@
       <p>Time for some D3</p>
       <p class="someClass">Edit Me!</p>
       <p @click="funky">{{something}}</p>
-      <canvas ref="canvas" class="d3" height="500" width="500"></canvas>
+      <canvas ref="canvas" class="d3" :height="height" :width="width"></canvas>
     </div>
 </template>
 <script>
@@ -15,6 +15,8 @@ export default {
   data() {
     return {
       something: 'Default',
+      windowHeight: this.$el,
+      windowWidth: this.$el,
       graph: {
         nodes: [
           { name: 'Javi', size: `${Math.ceil(Math.random() * 10)}` },
@@ -102,10 +104,11 @@ export default {
 
       this.getContext.beginPath();
       this.graph.nodes.forEach(this.drawNode);
+      this.getContext.fillStyle = `#${parseInt(Math.ceil(Math.random() * 5), 8)}${parseInt(Math.ceil(Math.random() * 10), 8)}${parseInt(Math.ceil(Math.random() * 10), 8)}${parseInt(Math.ceil(Math.random() * 10), 8)}${parseInt(Math.ceil(Math.random() * 10), 8)}${parseInt(Math.ceil(Math.random() * 10), 8)}`;
       this.getContext.fill();
     },
     drawNode(d) {
-      console.log(d);
+      // console.log(d);
       // debugger;
       this.getContext.moveTo(d.x, d.y);
       this.getContext.arc(d.x, d.y, parseInt(d.size, 10), 0, 2 * Math.PI);
