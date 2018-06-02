@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+// import Home from '/components/Home.vue';
+import Home from './components/Home.vue';
 
 export default {
   name: 'app',
   components: {
-    HelloWorld,
+    Home,
   },
 };
 </script>
@@ -24,5 +24,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+body {
+  background: linear-gradient(rgb(84, 169, 169) 10%, rgb(93, 102, 108)) no-repeat;
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  color: indianred;
 }
 </style>
