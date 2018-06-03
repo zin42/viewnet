@@ -29,30 +29,7 @@ export default {
           { name: 'Minty', size: '5' },
         ],
         links: [
-          // {
-          //   source: {
-          //     name: 'Javi',
-          //     // x: 2,
-          //     // y: 2,
-          //   },
-          //   target: {
-          //     name: 'Minty',
-          //     x: 5,
-          //     y: 7,
-          //   },
-          // },
-          // {
-          //   source: {
-          //     name: 'Javi',
-          //     x: 4,
-          //     y: 4,
-          //   },
-          //   target: {
-          //     name: 'Minty',
-          //     x: 5,
-          //     y: 7,
-          //   },
-          // },
+          { source: 'Javi', target: 'Minty' },
         ],
       },
       canvas: {},
@@ -104,7 +81,15 @@ export default {
 
       this.getContext.beginPath();
       this.graph.nodes.forEach(this.drawNode);
-      this.getContext.fillStyle = `#${parseInt(Math.ceil(Math.random() * 5), 8)}${parseInt(Math.ceil(Math.random() * 10), 8)}${parseInt(Math.ceil(Math.random() * 10), 8)}${parseInt(Math.ceil(Math.random() * 10), 8)}${parseInt(Math.ceil(Math.random() * 10), 8)}${parseInt(Math.ceil(Math.random() * 10), 8)}`;
+      // this.getContext.fillStyle =
+      /*
+      `#${parseInt(Math.ceil(Math.random() * 5), 8)}
+       ${parseInt(Math.ceil(Math.random() * 10), 8)}
+       ${parseInt(Math.ceil(Math.random() * 10), 8)}
+       ${parseInt(Math.ceil(Math.random() * 10), 8)}
+       ${parseInt(Math.ceil(Math.random() * 10), 8)}
+       ${parseInt(Math.ceil(Math.random() * 10), 8)}`;
+      */
       this.getContext.fill();
     },
     drawNode(d) {
