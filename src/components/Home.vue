@@ -90,6 +90,7 @@ export default {
        ${parseInt(Math.ceil(Math.random() * 10), 8)}
        ${parseInt(Math.ceil(Math.random() * 10), 8)}`;
       */
+      this.getContext.fillStyle = 'brown';
       this.getContext.fill();
     },
     drawNode(d) {
