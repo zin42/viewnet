@@ -22,11 +22,11 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: white;
   margin-top: 60px;
 }
 body {
-  background: linear-gradient(rgb(84, 169, 169) 10%, rgb(93, 102, 108)) no-repeat;
+  background: linear-gradient(rgb(55, 63, 63) 10%, rgb(93, 102, 108)) no-repeat;
   height: 100vh;
   width: 100vw;
   padding: 0;
