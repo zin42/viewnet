@@ -45,13 +45,13 @@ new Vue({
       const material = new Three.MeshBasicMaterial({ color: 0x00ff00 });
       cube = new Three.Mesh(geometry, material);
       cube.name = 'myCube';
-      this.ADD_SCENE(cube);
+      this.ADD_TO_SCENE(cube);
       setInterval(loop, 1000 / 60);
     });
   },
   methods: {
     ...mapMutations([
-      'ADD_SCENE',
+      'ADD_TO_SCENE',
     ]),
     /* eslint-disable */
     getWindowWidth(e) {

@@ -21,5 +21,7 @@ export default {
 </script>
 
 <style>
-
+    .frame-top {
+        /* border: 1px solid black; */
+    }
 </style>

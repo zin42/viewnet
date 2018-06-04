@@ -1,6 +1,5 @@
 <template>
     <div>
-      Hi there
       <canvas class="layer3d"></canvas>
     </div>
 </template>
