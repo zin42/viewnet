@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "d3": "5.4.0",
-    "seen": "0.2.7",
+    "three": "0.93.0",
+    "three-orbit-controls": "82.1.0",
     "vue": "^2.5.16",
+    "vue-resize-directive": "1.0.1",
     "vue-router": "3.0.1",
     "vuex": "3.0.1"
   },

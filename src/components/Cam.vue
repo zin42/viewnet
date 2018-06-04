@@ -1,0 +1,181 @@
+<template>
+    <div>
+      Hi there
+      <canvas class="layer3d"></canvas>
+    </div>
+</template>
+
+<script>
+import OrbitControlModule from 'three-orbit-controls';
+import * as Three from 'three';
+import resize from 'vue-resize-directive';
+import { mapState } from 'vuex';
+
+const OrbitControls = OrbitControlModule(Three);
+
+export default {
+  name: 'OrthographicViewport',
+  directives: {
+    resize,
+  },
+  props: ['options', 'view'],
+  data() {
+    return {
+      raycaster: new Three.Raycaster(),
+      mouse: new Three.Vector2(),
+      width: 0,
+      height: 0,
+      shaded: true,
+      zoom: 4,
+    };
+  },
+  mounted() {
+    this.width = this.$el.offsetWidth;
+    this.height = this.$el.offsetHeight;
+    this.aspect = this.width / this.height;
+
+    this.camera = new Three.OrthographicCamera(
+      /* eslint-disable */
+      this.zoom * this.aspect / -2,
+      this.zoom * this.aspect / 2,
+      /* eslint-enable */
+      this.zoom / 2,
+      this.zoom / -2,
+      1,
+      1024,
+    );
+    switch (this.view) {
+      case 'top':
+        this.camera.position.set(0, 0, 8);
+        break;
+      case 'bottom':
+        this.camera.position.set(0, 0, -8);
+        break;
+      case 'front':
+        this.camera.position.set(0, -8, 0);
+        break;
+      case 'back':
+        this.camera.position.set(0, 8, 0);
+        break;
+      case 'left':
+        this.camera.position.set(-8, 0, 0);
+        break;
+      case 'right':
+        this.camera.position.set(8, 0, 0);
+        break;
+      default:
+        break;
+    }
+    this.camera.up.set(0, 0, 1);
+    this.camera.lookAt(new Three.Vector3(0, 0, 0));
+
+    this.renderer = new Three.WebGLRenderer({
+      alpha: true,
+      antialias: false,
+      canvas: this.$el.getElementsByTagName('canvas')[0],
+    });
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setSize(this.width, this.height);
+    this.controls = new OrbitControls(this.camera, this.$el);
+    this.controls.enabled = true;
+
+    // Start the rendering loop:
+    this.loop();
+  },
+  computed: {
+    ...mapState({
+      scene: state => state.three.scene,
+    }),
+    aspect() {
+      return this.width / this.height;
+    },
+    viewFormated() {
+      return this.view.charAt(0).toUpperCase() + this.view.slice(1);
+    },
+  },
+  methods: {
+    loop() {
+      this.renderer.render(this.scene, this.camera);
+      requestAnimationFrame(this.loop);
+    },
+
+    // Returns position in 2D coordinates for point in 3D space:
+    getPosition2D(point, camera, callback) {
+      const result = point.clone().project(camera);
+      if (typeof callback === 'function') {
+        callback(result);
+        return false;
+      }
+      return result;
+    },
+    // Normalize 2D coordinates to center (camera):
+    normalizeToCenter(point, el, callback) {
+      const result = new Three.Vector2();
+      /* eslint-disable */
+      result.x = (point.x / el.clientWidth) * 2 - 1;
+      result.y = -(point.y / el.clientHeight) * 2 + 1;
+      /* eslint-enable */
+      if (typeof callback === 'function') {
+        callback(result);
+        return false;
+      }
+      return result;
+    },
+    // Normalize 2D coordinates to corner (typical HTML):
+    normalizeToCorner(point, el) {
+      return new Three.Vector2(
+        /* eslint-disable */
+        point.x * (el.clientWidth / 2) + el.clientWidth / 2,
+        -1 * point.y * (el.clientHeight / 2) + el.clientHeight / 2,
+        /* eslint-enable */
+      );
+    },
+    /* eslint-disable */
+    raycast(type) {
+    /* eslint-enable */
+      const position = this.normalizeToCenter(this.mouse, this.$el);
+      this.raycaster.setFromCamera(position, this.camera);
+      const intersects = this.raycaster.intersectObjects(this.$store.state.scene.children, true);
+      if (intersects.length > 0) {
+        // Emit event to parent component to handle!
+      }
+    },
+    // Mouse move:
+    /* eslint-disable */
+    mousemove(e) {
+    /* eslint-enable */
+      this.mouse.x = e.offsetX;
+      this.mouse.y = e.offsetY;
+      this.raycast('mousemove');
+    },
+    // Mouse down:
+    /* eslint-disable */
+    mousedown(e) {
+    /* eslint-enable */
+      this.raycast('mousedown');
+    },
+    // Mouse up:
+    /* eslint-disable */
+    mouseup(e) {
+    /* eslint-enable */
+      this.raycast('mouseup');
+    },
+    /* eslint-disable */
+    onResize(e) {
+    /* eslint-enable */
+      this.width = this.$el.offsetWidth;
+      this.height = this.$el.offsetHeight;
+      this.aspect = this.width / this.height;
+      /* eslint-disable */
+      this.camera.left = this.zoom * this.aspect / -2;
+      this.camera.right = this.zoom * this.aspect / 2;
+      this.camera.top = this.zoom / 2;
+      this.camera.bottom = this.zoom / -2;
+      /* eslint-enable */
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(this.width, this.height);
+    },
+  },
+};
+</script>
+
