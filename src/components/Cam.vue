@@ -8,7 +8,7 @@
 import OrbitControlModule from 'three-orbit-controls';
 import * as Three from 'three';
 import resize from 'vue-resize-directive';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 const OrbitControls = OrbitControlModule(Three);
 
@@ -33,16 +33,19 @@ export default {
     this.height = this.$el.offsetHeight;
     this.aspect = this.width / this.height;
 
-    this.camera = new Three.OrthographicCamera(
-      /* eslint-disable */
-      this.zoom * this.aspect / -2,
-      this.zoom * this.aspect / 2,
-      /* eslint-enable */
-      this.zoom / 2,
-      this.zoom / -2,
-      1,
-      1024,
-    );
+    // this.camera = new Three.OrthographicCamera(
+    //   /* eslint-disable */
+    //   this.zoom * this.aspect / -2,
+    //   this.zoom * this.aspect / 2,
+    //   /* eslint-enable */
+    //   this.zoom / 2,
+    //   this.zoom / -2,
+    //   1,
+    //   1024,
+    // );
+
+    // Field of view, aspect, near, far
+    this.camera = new Three.PerspectiveCamera(45, this.aspect, 1, 1024);
     switch (this.view) {
       case 'top':
         this.camera.position.set(0, 0, 8);
@@ -85,17 +88,25 @@ export default {
     ...mapState({
       scene: state => state.three.scene,
     }),
-    aspect() {
-      return this.width / this.height;
-    },
+    // aspect() {
+    //   // return this.width / this.height;
+    // },
     viewFormated() {
       return this.view.charAt(0).toUpperCase() + this.view.slice(1);
     },
   },
   methods: {
+    ...mapActions([
+      'RUN_LOOP',
+    ]),
+    logThis() {
+      console.log(this, 'THIS IS THIS');
+    },
     loop() {
-      this.renderer.render(this.scene, this.camera);
-      requestAnimationFrame(this.loop);
+      /* eslint-disable */
+      /* eslint-enable */
+      // console.log(this);
+      this.RUN_LOOP(this);
     },
 
     // Returns position in 2D coordinates for point in 3D space:
@@ -134,7 +145,7 @@ export default {
     /* eslint-enable */
       const position = this.normalizeToCenter(this.mouse, this.$el);
       this.raycaster.setFromCamera(position, this.camera);
-      const intersects = this.raycaster.intersectObjects(this.$store.state.scene.children, true);
+      const intersects = this.raycaster.intersectObjects(this.scene.children, true);
       if (intersects.length > 0) {
         // Emit event to parent component to handle!
       }
