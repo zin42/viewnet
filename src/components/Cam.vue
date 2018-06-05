@@ -26,63 +26,65 @@ export default {
       height: 0,
       shaded: true,
       zoom: 4,
+      $firebaseRefs: '',
     };
   },
   mounted() {
-    this.width = this.$el.offsetWidth;
-    this.height = this.$el.offsetHeight;
-    this.aspect = this.width / this.height;
+    this.$nextTick(() => {
+      this.width = this.$el.offsetWidth;
+      this.height = this.$el.offsetHeight;
+      this.aspect = this.width / this.height;
 
-    // this.camera = new Three.OrthographicCamera(
-    //   /* eslint-disable */
-    //   this.zoom * this.aspect / -2,
-    //   this.zoom * this.aspect / 2,
-    //   /* eslint-enable */
-    //   this.zoom / 2,
-    //   this.zoom / -2,
-    //   1,
-    //   1024,
-    // );
+      // this.camera = new Three.OrthographicCamera(
+      //   /* eslint-disable */
+      //   this.zoom * this.aspect / -2,
+      //   this.zoom * this.aspect / 2,
+      //   /* eslint-enable */
+      //   this.zoom / 2,
+      //   this.zoom / -2,
+      //   1,
+      //   1024,
+      // );
 
-    // Field of view, aspect, near, far
-    this.camera = new Three.PerspectiveCamera(45, this.aspect, 1, 1024);
-    switch (this.view) {
-      case 'top':
-        this.camera.position.set(0, 0, 8);
-        break;
-      case 'bottom':
-        this.camera.position.set(0, 0, -8);
-        break;
-      case 'front':
-        this.camera.position.set(0, -8, 0);
-        break;
-      case 'back':
-        this.camera.position.set(0, 8, 0);
-        break;
-      case 'left':
-        this.camera.position.set(-8, 0, 0);
-        break;
-      case 'right':
-        this.camera.position.set(8, 0, 0);
-        break;
-      default:
-        break;
-    }
-    this.camera.up.set(0, 0, 1);
-    this.camera.lookAt(new Three.Vector3(0, 0, 0));
+      // Field of view, aspect, near, far
+      this.camera = new Three.PerspectiveCamera(45, this.aspect, 1, 1024);
+      switch (this.view) {
+        case 'top':
+          this.camera.position.set(0, 0, 8);
+          break;
+        case 'bottom':
+          this.camera.position.set(0, 0, -8);
+          break;
+        case 'front':
+          this.camera.position.set(0, -8, 0);
+          break;
+        case 'back':
+          this.camera.position.set(0, 8, 0);
+          break;
+        case 'left':
+          this.camera.position.set(-8, 0, 0);
+          break;
+        case 'right':
+          this.camera.position.set(8, 0, 0);
+          break;
+        default:
+          break;
+      }
+      this.camera.up.set(0, 0, 1);
+      this.camera.lookAt(new Three.Vector3(0, 0, 0));
 
-    this.renderer = new Three.WebGLRenderer({
-      alpha: true,
-      antialias: false,
-      canvas: this.$el.getElementsByTagName('canvas')[0],
+      this.renderer = new Three.WebGLRenderer({
+        alpha: true,
+        antialias: false,
+        canvas: this.$el.getElementsByTagName('canvas')[0],
+      });
+      this.renderer.setPixelRatio(window.devicePixelRatio);
+      this.renderer.setSize(this.width, this.height);
+      this.controls = new OrbitControls(this.camera, this.$el);
+      this.controls.enabled = true;
+      // Start the rendering loop:
+      this.loop();
     });
-    this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(this.width, this.height);
-    this.controls = new OrbitControls(this.camera, this.$el);
-    this.controls.enabled = true;
-
-    // Start the rendering loop:
-    this.loop();
   },
   computed: {
     ...mapState({
@@ -107,6 +109,7 @@ export default {
       /* eslint-enable */
       // console.log(this);
       this.RUN_LOOP(this);
+      requestAnimationFrame(this.loop);
     },
 
     // Returns position in 2D coordinates for point in 3D space:

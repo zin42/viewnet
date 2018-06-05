@@ -5,7 +5,5 @@ export default {
   },
   M_RUN_LOOP: (state, ctx) => {
     ctx.renderer.render(ctx.scene, ctx.camera);
-    requestAnimationFrame(ctx.loop);
-    // debugger;
   },
 };
