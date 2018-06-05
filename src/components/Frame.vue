@@ -21,7 +21,8 @@ export default {
 </script>
 
 <style>
-    .frame-top {
+    .viewport-container {
         /* border: 1px solid black; */
+        height: 100vh;
     }
 </style>
