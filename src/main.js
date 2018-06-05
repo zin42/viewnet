@@ -42,7 +42,9 @@ new Vue({
     this.$nextTick(() => {
       // Build the Three.js scene:
       const geometry = new Three.BoxGeometry(1, 1, 1);
-      const material = new Three.MeshBasicMaterial({ color: 0x00ff00 });
+      const material = new Three.MeshBasicMaterial({ color: 0xf2c8a5 });
+      const axesHelper = new Three.AxesHelper(5);
+      this.ADD_TO_SCENE(axesHelper);
       cube = new Three.Mesh(geometry, material);
       cube.name = 'myCube';
       this.ADD_TO_SCENE(cube);

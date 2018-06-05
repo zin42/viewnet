@@ -25,7 +25,7 @@ export default {
       width: 0,
       height: 0,
       shaded: true,
-      zoom: 4,
+      zoom: 2,
       $firebaseRefs: '',
     };
   },
@@ -34,17 +34,6 @@ export default {
       this.width = this.$el.offsetWidth;
       this.height = this.$el.offsetHeight;
       this.aspect = this.width / this.height;
-
-      // this.camera = new Three.OrthographicCamera(
-      //   /* eslint-disable */
-      //   this.zoom * this.aspect / -2,
-      //   this.zoom * this.aspect / 2,
-      //   /* eslint-enable */
-      //   this.zoom / 2,
-      //   this.zoom / -2,
-      //   1,
-      //   1024,
-      // );
 
       // Field of view, aspect, near, far
       this.camera = new Three.PerspectiveCamera(45, this.aspect, 1, 1024);
@@ -195,6 +184,7 @@ export default {
 <style scoped>
   div {
     height: 100vh;
+    width: 100vw;
   }
 </style>
 

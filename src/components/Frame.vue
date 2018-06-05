@@ -3,6 +3,7 @@
         <div class="frame-top"></div>
             <div class="frame-mid">
                 <div class='viewport-container'>
+                    <p>Javi Three Js Project</p>
                     <OrthographicViewport view='top'/>
                 </div>
             </div>
@@ -21,8 +22,21 @@ export default {
 </script>
 
 <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
     .viewport-container {
         /* border: 1px solid black; */
         height: 100vh;
+        width: 100vw;
+        /* background: linear-gradient(rgb(44, 44, 44,), rbg(44, 44, 44)); */
+        background-color: rgb(91, 106, 91);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 1.2em;
     }
 </style>
