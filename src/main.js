@@ -23,7 +23,9 @@ Vue.config.productionTip = false;
 let cube;
 // Deterministic loop:
 function loop() {
-  cube.rotation.z += 0.05;
+  cube.rotation.z += 0.0005;
+  cube.rotation.x += 0.005;
+  cube.rotation.y += 0.05;
 }
 
 new Vue({

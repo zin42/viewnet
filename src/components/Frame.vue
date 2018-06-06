@@ -32,11 +32,13 @@ export default {
         width: 100vw;
         /* background: linear-gradient(rgb(44, 44, 44,), rbg(44, 44, 44)); */
         background-color: rgb(91, 106, 91);
+        background: url('../assets/Pink-Grid-Aesthetic.jpg') center center / cover no-repeat;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
 
         font-size: 1.2em;
+        color: white;
     }
 </style>
