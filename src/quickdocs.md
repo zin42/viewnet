@@ -3,11 +3,16 @@
 # Three js stuff is stored in the store
 
 # Handy links
-https://github.com/ianpaschal/three-vue-viewport
 
-https://codepen.io/JavierRomario/pen/QxyNON?editors=1010
+Examples
+- https://github.com/ianpaschal/three-vue-viewport
 
-=============
+- https://codepen.io/JavierRomario/pen/QxyNON?editors=1010
+
+Mouse Movement tips
+- http://www.jacklmoore.com/notes/mouse-position/
+-------
+
 - 04/June/2018
 > Need to get the loop to mutate the scene or actions on the scene rather than doing it direct
 

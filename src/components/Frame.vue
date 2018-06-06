@@ -4,7 +4,8 @@
             <div class="frame-mid">
                 <div class='viewport-container'>
                     <p>Javi Three Js Project</p>
-                    <OrthographicViewport view='top'/>
+                    <OrthographicViewport view='front'/>
+                    <Cube/>
                 </div>
             </div>
         <div class="frame-bottom"></div>
@@ -13,10 +14,12 @@
 
 <script>
 import OrthographicViewport from './Cam.vue';
+import Cube from './Cube.vue';
 
 export default {
   components: {
     OrthographicViewport,
+    Cube,
   },
 };
 </script>
@@ -31,8 +34,10 @@ export default {
         height: 100vh;
         width: 100vw;
         /* background: linear-gradient(rgb(44, 44, 44,), rbg(44, 44, 44)); */
-        background-color: rgb(91, 106, 91);
-        background: url('../assets/Pink-Grid-Aesthetic.jpg') center center / cover no-repeat;
+        /* background-color: rgb(91, 106, 91); */
+        /* background: url('../assets/Pink-Grid-Aesthetic.jpg') center center / cover no-repeat; */
+
+        background: linear-gradient(#666, #000);
         display: flex;
         flex-direction: column;
         justify-content: center;

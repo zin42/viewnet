@@ -26,7 +26,7 @@ export default {
       height: 0,
       shaded: true,
       zoom: 2,
-      $firebaseRefs: '',
+      // $firebaseRefs: '',
     };
   },
   mounted() {
@@ -36,7 +36,7 @@ export default {
       this.aspect = this.width / this.height;
 
       // Field of view, aspect, near, far
-      this.camera = new Three.PerspectiveCamera(75, this.aspect, 1, 1024);
+      this.camera = new Three.PerspectiveCamera(45, this.aspect, 1, 1024);
       switch (this.view) {
         case 'top':
           this.camera.position.set(0, 0, 8);
