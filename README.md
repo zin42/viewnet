@@ -9,4 +9,16 @@
 ## Implementation
 
 - Data Visualisation of and for organizations
+    + Using Mettrr Data to provide begin
+
 - Integrations with services to help provide data vectors
+    + Github, Jira, Statistics, Funny Quotes, Display Pics, Gifs, Animations
+
+- Interactivity to help group and control the nodes
+    + Zoom
+    + Touch
+    + Group
+    + Controls
+    + Details
+    + Labels
+    + Relations between Nodes
