@@ -1,5 +1,6 @@
 <template>
-    <div></div>
+    <div>
+    </div>
 </template>
 
 <script>
@@ -8,12 +9,13 @@ import { mapMutations, mapState } from 'vuex';
 
 let cube;
 // Deterministic loop:
-function loop(ctx) {
-  const object = ctx.three.getObjectByName('myCube0');
-  object.rotation.x += 0.05;
-  object.rotation.y += 0.05;
-  // cube += 0.05;
-  // console.count('ran');
+function loop(ctx, controls) {
+  controls.forEach((item) => {
+    /* eslint-disable */
+    item.rotation.x += 0.05;
+    item.rotation.y += 0.05;
+    /* eslint-enable */
+  });
 }
 
 export default {
@@ -32,9 +34,14 @@ export default {
         cube.position.y = 0 + i;
         this.ADD_TO_SCENE(cube);
       }
+      const object = this.three.getObjectByName('myCube0');
+      const object2 = this.three.getObjectByName('myCube3');
+
+      const controls = [object, object2];
+      const vm = this;
 
       setInterval(() => {
-        loop(this);
+        loop(vm, controls);
       }, 1000 / 60);
     });
   },

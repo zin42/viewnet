@@ -26,7 +26,7 @@ export default {
       height: 0,
       shaded: true,
       zoom: 2,
-      // $firebaseRefs: '',
+      $firebaseRefs: '',
     };
   },
   mounted() {
@@ -59,6 +59,10 @@ export default {
         default:
           break;
       }
+      // let fogHex;
+      // let fogDensity;
+      // fogHex = 0x000000; /* As black as your heart. */
+      // fogDensity = 0.0007; /* So not terribly dense? */
       this.camera.up.set(0, 0, 1);
       this.camera.lookAt(new Three.Vector3(0, 0, 0));
 
