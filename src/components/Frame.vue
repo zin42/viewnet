@@ -35,9 +35,9 @@ export default {
         width: 100vw;
         /* background: linear-gradient(rgb(44, 44, 44,), rbg(44, 44, 44)); */
         /* background-color: rgb(91, 106, 91); */
-        /* background: url('../assets/Pink-Grid-Aesthetic.jpg') center center / cover no-repeat; */
+        background: url('../assets/Pink-Grid-Aesthetic.jpg') center center / cover no-repeat;
 
-        background: linear-gradient(#666, #000);
+        /* background: linear-gradient(#666, #000); */
         display: flex;
         flex-direction: column;
         justify-content: center;
