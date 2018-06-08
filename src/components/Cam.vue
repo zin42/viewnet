@@ -100,7 +100,6 @@ export default {
     loop() {
       /* eslint-disable */
       /* eslint-enable */
-      // console.log(this);
       this.RUN_LOOP(this);
       requestAnimationFrame(this.loop);
     },

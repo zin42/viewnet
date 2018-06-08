@@ -3,7 +3,7 @@
         <div class="frame-top"></div>
             <div class="frame-mid">
                 <div class='viewport-container'>
-                    <p>Javi Three Js Project</p>
+                    <!-- <p>Javi Three Js Project</p> -->
                     <OrthographicViewport view='front'/>
                     <Cube/>
                 </div>

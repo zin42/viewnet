@@ -23,10 +23,19 @@ export default {
     this.$nextTick(() => {
       // Build the Three.js scene:
       const geometry = new Three.BoxGeometry(1, 1, 1);
+
+      const pointCloudGeo = new THREE.Geometry();
+
+      const groundGeometry = new Three.BoxGeometry(10, 10, 0.1);
       const material = new Three.MeshBasicMaterial({ color: 0xf2c8a5 });
+      const groundMaterial = new Three.MeshBasicMaterial({ color: 0x666666 });
       const axesHelper = new Three.AxesHelper(5);
+      const grid = new Three.GridHelper(10, 2);
+
+      grid.geometry.rotateX(Math.PI / 2);
+
+      this.ADD_TO_SCENE(grid);
       this.ADD_TO_SCENE(axesHelper);
-      // const cubeArray = [];
       for (let i = 0; i < 5; i += 1) {
         cube = new Three.Mesh(geometry, material);
         cube.name = `myCube${i}`;
@@ -34,6 +43,15 @@ export default {
         cube.position.y = 0 + i;
         this.ADD_TO_SCENE(cube);
       }
+
+      const ground = new Three.Mesh(groundGeometry, groundMaterial);
+      ground.name = 'ground';
+      ground.position.x = 0;
+      ground.position.y = 0;
+      ground.position.z = -1.1;
+      // ground.scale.x = 1;
+      // ground.scale.y = 20.5;
+      this.ADD_TO_SCENE(ground);
       const object = this.three.getObjectByName('myCube0');
       const object2 = this.three.getObjectByName('myCube3');
 
