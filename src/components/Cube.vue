@@ -7,59 +7,77 @@
 import * as Three from 'three';
 import { mapMutations, mapState } from 'vuex';
 
-let cube;
+// const vertexshader = document.getElementById('vertexshader');
+// const fragmentshader = document.getElementById('fragmentshader');
+
 // Deterministic loop:
-function loop(ctx, controls) {
-  controls.forEach((item) => {
-    /* eslint-disable */
-    item.rotation.x += 0.05;
-    item.rotation.y += 0.05;
-    /* eslint-enable */
-  });
+function loop() {
+  // ctx
+  // particles
+  // particles.rotation.x += 0.005;
+  // particles.rotation.x += 0.5;
 }
 
 export default {
   mounted() {
     this.$nextTick(() => {
-      // Build the Three.js scene:
-      const geometry = new Three.BoxGeometry(1, 1, 1);
+      let particles = '';
+      const particleSize = 20;
+      /* eslint-disable */
+      // const rayCaster;
+      // const mouse;
+      // const intersected;
 
-      const pointCloudGeo = new THREE.Geometry();
+      // width — Width of the sides on the X axis. Default is 1.
+      // height — Heightlet of the sides on the Y axis. Default is 1.
+      // depth — Depth of the sides on the Z axis. Default is 1.
+      // widthSegments — Optional. Number of segmented faces along the width of the sides. Default is 1.
+      // heightSegments — Optional. Number of segmented faces along the height of the sides. Default is 1.
+      // depthSegments — Optional. Number of segmented faces along the depth of the sides. Default is 1.
+      /* eslint-enable */
+      const boxGeometry = new Three.BoxGeometry(200, 200, 200, 16, 16, 16);
+      /* eslint-disable */
+      const vertices = boxGeometry.vertices;
+      /* eslint-enable */
+      // console.log(boxGeometry);
+      const positions = new Float32Array(vertices.length * 3);
+      const colors = new Float32Array(vertices.length * 3);
+      const sizes = new Float32Array(vertices.length);
 
-      const groundGeometry = new Three.BoxGeometry(10, 10, 0.1);
-      const material = new Three.MeshBasicMaterial({ color: 0xf2c8a5 });
-      const groundMaterial = new Three.MeshBasicMaterial({ color: 0x666666 });
-      const axesHelper = new Three.AxesHelper(5);
-      const grid = new Three.GridHelper(10, 2);
+      let vertex;
+      const color = new Three.Color();
 
-      grid.geometry.rotateX(Math.PI / 2);
-
-      this.ADD_TO_SCENE(grid);
-      this.ADD_TO_SCENE(axesHelper);
-      for (let i = 0; i < 5; i += 1) {
-        cube = new Three.Mesh(geometry, material);
-        cube.name = `myCube${i}`;
-        cube.position.x = 0 + i;
-        cube.position.y = 0 + i;
-        this.ADD_TO_SCENE(cube);
+      for (let i = 0; i < vertices.length; i += 1) {
+        vertex = vertices[i];
+        vertex.toArray(positions, i * 3);
+        color.setHSL((0.01 + 0.1) * (i / vertices.length), 1.0, 0.5);
+        color.toArray(colors, i * 3);
+        sizes[i] = particleSize * 0.5;
       }
 
-      const ground = new Three.Mesh(groundGeometry, groundMaterial);
-      ground.name = 'ground';
-      ground.position.x = 0;
-      ground.position.y = 0;
-      ground.position.z = -1.1;
-      // ground.scale.x = 1;
-      // ground.scale.y = 20.5;
-      this.ADD_TO_SCENE(ground);
-      const object = this.three.getObjectByName('myCube0');
-      const object2 = this.three.getObjectByName('myCube3');
+      const geometry = new Three.BufferGeometry();
+      geometry.addAttribute('position', new Three.BufferAttribute(positions, 3));
+      geometry.addAttribute('customColor', new Three.BufferAttribute(colors, 3));
+      geometry.addAttribute('size', new Three.BufferAttribute(sizes * 1000, 1));
 
-      const controls = [object, object2];
+      const material = new Three.MeshBasicMaterial();
+      // const material = new Three.ShaderMaterial( {
+      //   uniforms: {
+      //     color:   { value: new Three.Color(0xffffff) },
+      //     // texture: { value: new Three.TextureLoader().load( "textures/sprites/disc.png" ) }
+      //   },
+      //   vertexShader: document.getElementById( 'vertexshader' ).textContent,
+      //   fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+      //   alphaTest: 0.9,
+      // });
+
+
+      particles = new Three.Points(geometry, material);
+      this.ADD_TO_SCENE(particles);
+
       const vm = this;
-
       setInterval(() => {
-        loop(vm, controls);
+        loop(vm, particles);
       }, 1000 / 60);
     });
   },
