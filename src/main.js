@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import * as Three from 'three';
-import { mapState, mapMutations } from 'vuex';
+// import * as Three from 'three';
+// import { mapState, mapMutations } from 'vuex';
 import store from '@/store';
 // import App from './App.vue';
 import Frame from './components/Frame.vue';
