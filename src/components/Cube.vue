@@ -59,8 +59,12 @@ export default {
       geometry.addAttribute('position', new Three.BufferAttribute(positions, 3));
       geometry.addAttribute('customColor', new Three.BufferAttribute(colors, 3));
       geometry.addAttribute('size', new Three.BufferAttribute(sizes * 1000, 1));
+      geometry.addAttribute('scale', new Three.BufferAttribute(positions, 3));
 
-      const material = new Three.MeshBasicMaterial();
+      const material = new Three.PointsMaterial({ color: 0x888888, size: 2.0 });
+
+      // const material = new Three.MeshBasicMaterial();
+
       // const material = new Three.ShaderMaterial( {
       //   uniforms: {
       //     color:   { value: new Three.Color(0xffffff) },
