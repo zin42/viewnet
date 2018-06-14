@@ -9,6 +9,7 @@ import OrbitControlModule from 'three-orbit-controls';
 import * as Three from 'three';
 import resize from 'vue-resize-directive';
 import { mapState, mapActions } from 'vuex';
+import * as Tween from '@tweenjs/tween.js';
 
 const OrbitControls = OrbitControlModule(Three);
 
@@ -25,7 +26,7 @@ export default {
       width: 0,
       height: 0,
       shaded: true,
-      zoom: 2,
+      zoom: 0,
       $firebaseRefs: '',
     };
   },
@@ -36,7 +37,7 @@ export default {
       this.aspect = this.width / this.height;
 
       // Field of view, aspect, near, far
-      this.camera = new Three.PerspectiveCamera(45, this.aspect, 1, 1024);
+      this.camera = new Three.PerspectiveCamera(45, this.aspect, 1, 10000);
       switch (this.view) {
         case 'top':
           this.camera.position.set(0, 0, 8);
@@ -64,7 +65,29 @@ export default {
       // fogHex = 0x000000; /* As black as your heart. */
       // fogDensity = 0.0007; /* So not terribly dense? */
       this.camera.up.set(0, 0, 1);
+
       this.camera.lookAt(new Three.Vector3(0, 0, 0));
+
+      const vm = this;
+
+      const cameraPosition = {
+        x: 0,
+        y: 0,
+        z: 0,
+      };
+
+      setTimeout(() => {
+        const tween = new Tween.Tween(cameraPosition).to({ x: 0, y: -500, z: 0 }, 2000);
+        tween.easing(Tween.Easing.Quadratic.In);
+        tween.onUpdate(() => {
+          vm.camera.position.x = cameraPosition.x;
+          vm.camera.position.y = cameraPosition.y;
+          vm.camera.position.z = cameraPosition.z;
+        });
+
+        tween.start();
+        vm.camera.lookAt(new Three.Vector3(0, 0, 0));
+      }, 500);
 
       this.renderer = new Three.WebGLRenderer({
         alpha: true,
@@ -101,6 +124,7 @@ export default {
       /* eslint-disable */
       /* eslint-enable */
       this.RUN_LOOP(this);
+      Tween.update();
       requestAnimationFrame(this.loop);
     },
 

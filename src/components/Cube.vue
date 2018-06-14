@@ -61,7 +61,9 @@ export default {
       geometry.addAttribute('size', new Three.BufferAttribute(sizes * 1000, 1));
       geometry.addAttribute('scale', new Three.BufferAttribute(positions, 3));
 
-      const material = new Three.PointsMaterial({ color: 0x888888, size: 2.0 });
+
+      // eslint-disable-next-line
+      const material = new Three.PointsMaterial({ color: 0x888888, size: 6.0, sizeAttenuation: false });
 
       // const material = new Three.MeshBasicMaterial();
 
