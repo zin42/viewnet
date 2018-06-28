@@ -20,56 +20,25 @@ function loop() {
 
 export default {
   mounted() {
-    this.$nextTick(() => {
-      let particles = '';
-      // const particleSize = 20;
-      // const rayCaster;
-      // const mouse;
-      // const intersected;
+    let particles = '';
 
+    const geometry = new Three.BufferGeometry();
+    geometry.needsUpdate = true;
+    const sphereGeo = new Three.SphereGeometry(50, 20, 20);
+    geometry.fromGeometry(sphereGeo);
+    // eslint-disable-next-line
+    const material = new Three.PointsMaterial({ color: 0xBADA55, size: 6.0, sizeAttenuation: true });
 
-      // const boxGeometry = new Three.BoxGeometry(200, 200, 200, 16, 16, 16);
-      // For Debugging
-      // this.geometryArr = boxGeometry.vertices;
+    particles = new Three.Points(geometry, material);
+    this.ADD_TO_SCENE(particles);
 
-      /* eslint-disable */
-      // const vertices = boxGeometry.vertices;
-      /* eslint-enable */
+    const vm = this;
+    setInterval(() => {
+      loop(vm, particles);
+    }, 1000 / 60);
 
-      // const positions = new Float32Array(vertices.length * 3);
-      // const colors = new Float32Array(vertices.length * 3);
-      // const sizes = new Float32Array(vertices.length);
-
-      // let vertex;
-      // const color = new Three.Color();
-      // console.log(positions);
-      // for (let i = 0; i < vertices.length; i += 1) {
-      //   vertex = vertices[i];
-      //   vertex.toArray(positions, i * 3);
-      //   color.setHSL((0.01 + 0.1) * (i / vertices.length), 1.0, 0.5);
-      //   color.toArray(colors, i * 3);
-      //   sizes[i] = particleSize * 0.5;
-      // }
-
-      const geometry = new Three.BufferGeometry();
-      // geometry.addAttribute('position', new Three.BufferAttribute(positions, 3));
-      // geometry.addAttribute('customColor', new Three.BufferAttribute(colors, 3));
-      // geometry.addAttribute('size', new Three.BufferAttribute(sizes * 1000, 1));
-      // geometry.addAttribute('scale', new Three.BufferAttribute(positions, 3));
-      geometry.needsUpdate = true;
-      const sphereGeo = new Three.SphereGeometry(50, 20, 20);
-      geometry.fromGeometry(sphereGeo);
-      // eslint-disable-next-line
-      const material = new Three.PointsMaterial({ color: 0xBADA55, size: 6.0, sizeAttenuation: true });
-
-      particles = new Three.Points(geometry, material);
-      this.ADD_TO_SCENE(particles);
-
-      const vm = this;
-      setInterval(() => {
-        loop(vm, particles);
-      }, 1000 / 60);
-    });
+    // this.$nextTick(() => {
+    // });
   },
   data() {
     return {

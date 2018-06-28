@@ -60,10 +60,7 @@ export default {
         default:
           break;
       }
-      // let fogHex;
-      // let fogDensity;
-      // fogHex = 0x000000; /* As black as your heart. */
-      // fogDensity = 0.0007; /* So not terribly dense? */
+
       this.camera.up.set(0, 0, 1);
 
       this.camera.lookAt(new Three.Vector3(0, 0, 0));
@@ -98,7 +95,7 @@ export default {
       this.renderer.setSize(this.width, this.height);
       this.controls = new OrbitControls(this.camera, this.$el);
       this.controls.enabled = true;
-      // Start the rendering loop:
+
       this.loop();
     });
   },
@@ -106,9 +103,7 @@ export default {
     ...mapState({
       scene: state => state.three.scene,
     }),
-    // aspect() {
-    //   // return this.width / this.height;
-    // },
+
     viewFormated() {
       return this.view.charAt(0).toUpperCase() + this.view.slice(1);
     },
